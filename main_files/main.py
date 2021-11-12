@@ -61,7 +61,7 @@ class Authorization(QMainWindow, Ui_Authorization_Design):
                                             'К сожалению, пароль не подходит, пожалуйста, повторите попытку')
         else:
             valid = QMessageBox.warning(self, 'Ошибка при входе!',
-                                        'К сожалению, мы не можем найти ваше имя в базе данных. Пожалуйста, повторите попыткую')
+                                        'К сожалению, мы не можем найти ваше имя в базе данных. Пожалуйста, повторите попытку')
 
     def make_registration(self):
         self.close()
@@ -359,7 +359,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
             row = list([i.row() for i in self.tableWidget.selectedItems()])
             if not len(row):
                 valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                            'Вы не выбрали строку для измененния')
+                                            'Вы не выбрали строку для изменения')
             else:
                 row = row[0]
                 info = []
@@ -382,7 +382,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         row = list([i.row() for i in self.tableWidget.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для измененния')
+                                        'Вы не выбрали строку для изменения')
         else:
             row = row[0]
             info = []
@@ -395,7 +395,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         row = list([i.row() for i in self.tableWidget_2.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для измененния')
+                                        'Вы не выбрали строку для изменения')
         else:
             row = row[0]
             info = []
@@ -801,7 +801,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
         row = list([i.row() for i in self.tableWidget.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для измененния')
+                                        'Вы не выбрали строку для изменения')
         else:
             row = row[0]
             info = []
@@ -814,7 +814,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
         row = list([i.row() for i in self.tableWidget_2.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для измененния')
+                                        'Вы не выбрали строку для изменения')
         else:
             row = row[0]
             info = []
@@ -1006,7 +1006,7 @@ class AddItemForm(QMainWindow, Ui_Insert_Item_Form_Design):
                                             'Год должен быть числом!')
         else:
             valid = QMessageBox.warning(self, 'Добавление данных в библиотеке',
-                                        'Нужно заполнить все имя, автор, год, жанр')
+                                        'Нужно заполнить всё: имя, автор, год, жанр')
 
 
 class AddBookmarksItemForm(QMainWindow):
