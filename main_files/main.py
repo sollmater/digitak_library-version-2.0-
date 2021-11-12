@@ -178,8 +178,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
 
 
 class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
-    def __init__(self, parent=
-    Authorization):
+    def __init__(self, parent=Authorization):
         super().__init__()
         self.setupUi(self)
 
@@ -322,9 +321,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         self.tableWidget.setRowCount(len(result))
         if len(result):
             self.tableWidget.setColumnCount(len(result[0]))
-        # получение заголовков таблицы с помощью cur.description
         self.titles = [description[0] for description in cur.description]
-        # установка заголовков в таблицу
         self.tableWidget.setHorizontalHeaderLabels(self.titles)
         for i, elem in enumerate(result):
             for j, val in enumerate(elem):
@@ -351,7 +348,6 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         try:
             req = """DELETE from books WHERE id = ?"""
             connection.execute(req, (id,))
-            # сохраняем изменения
             connection.commit()
             self.redraw_table_1()
         except:
@@ -694,7 +690,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
         self.flag = True
 
     def create_table(self):
-        cur = self.con.cursor()
+        cur = connection.cursor()
         request = """CREATE TABLE IF NOT EXISTS books (
     id         INTEGER PRIMARY KEY AUTOINCREMENT
                        UNIQUE
