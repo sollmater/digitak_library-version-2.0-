@@ -103,7 +103,6 @@ class Ui_MainWindow_Design_User(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
         self.gridLayout_6.addWidget(self.comboBox_2, 5, 2, 1, 1)
         self.pushButton_7 = QtWidgets.QPushButton(self.tab)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Minimum)

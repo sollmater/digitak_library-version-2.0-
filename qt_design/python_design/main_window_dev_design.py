@@ -56,7 +56,6 @@ class Ui_MainWindow_Design_Dev(object):
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
-        self.comboBox_2.addItem("")
         self.gridLayout_6.addWidget(self.comboBox_2, 5, 4, 1, 1)
         self.label = QtWidgets.QLabel(self.tab)
         self.label.setObjectName("label")

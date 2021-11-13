@@ -15,6 +15,8 @@ class Ui_Profile_Information_Design(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(550, 446)
+        MainWindow.setMinimumSize(QtCore.QSize(550, 446))
+        MainWindow.setMaximumSize(QtCore.QSize(550, 446))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox_2 = QtWidgets.QGroupBox(self.centralwidget)

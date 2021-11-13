@@ -256,7 +256,8 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         self.tableWidget.setRowCount(len(result))
         if len(result):
             self.tableWidget.setColumnCount(len(result[0]))
-        self.titles = [description[0] for description in cur.description]
+        self.titles = ['Номер в каталоге', 'Название книги', 'Автор', 'Год написания', 'Издатель', 'Перевод',
+                            'Жанр']
         self.tableWidget.setHorizontalHeaderLabels(self.titles)
         for i, elem in enumerate(result):
             for j, val in enumerate(elem):
@@ -417,11 +418,19 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         try:
             req = """INSERT INTO books(name, author, year, publisher, translator, genre) VALUES(?, ?, ?, ?, ?, ?)"""
             connection.execute(req, (name, author, year, publisher, translator, genre))
+            self.check_genres(genre)
             connection.commit()
             self.redraw_table_1()
         except:
             valid = QMessageBox.warning(self, 'Ошибка при работе с базой книг',
                                         'Произошла ошибка при удалении книг!')
+
+    def check_genres(self, genre):
+        count = self.comboBox_2.count()
+        list_genres = [self.comboBox_2.itemText(i) for i in range(count)]
+        if genre not in list_genres:
+            self.comboBox_2.addItem('')
+            self.comboBox_2.setItemText(count, genre)
 
     def add_to_bookmarks(self, id):
         try:
@@ -999,7 +1008,7 @@ class AddItemForm(QMainWindow, Ui_Insert_Item_Form_Design):
 
         if name != '' and author != '' and year != '' and genre != '':
             if author.isdigit():
-                self.parent().add_to_books(name, author, year, publisher, translator, genre)
+                self.parent().add_to_books(name, year, author, publisher, translator, genre)
                 self.close()
             else:
                 valid = QMessageBox.warning(self, 'Добавление данных в библиотеке',
@@ -1090,8 +1099,8 @@ class UpdateItemForm(QMainWindow, Ui_Update_Item_Form_Design):
         self.translator = translator
         self.genre = genre
         self.lineEdit_4.setText(self.name)
-        self.lineEdit_5.setText(self.author)
-        self.lineEdit_6.setText(self.year)
+        self.lineEdit_5.setText(self.year)
+        self.lineEdit_6.setText(self.author)
         self.lineEdit_7.setText(self.publisher)
         self.lineEdit_8.setText(self.translator)
         self.lineEdit_9.setText(self.genre)
