@@ -61,7 +61,7 @@ class Authorization(QMainWindow, Ui_Authorization_Design):
                                             'К сожалению, пароль не подходит, пожалуйста, повторите попытку')
         else:
             valid = QMessageBox.warning(self, 'Ошибка при входе!',
-                                        'К сожалению, мы не можем найти ваше имя в базе данных. Пожалуйста, повторите попытку')
+                                        'К сожалению, мы не можем найти ваше имя в базе данных. Пожалуйста, повторите попытку.')
 
     def make_registration(self):
         self.close()
@@ -70,7 +70,7 @@ class Authorization(QMainWindow, Ui_Authorization_Design):
     def make_bookmarks_field(self, name):
         req = "INSERT INTO bookmarks(name, list_books) VALUES(?, '')"
         cur = connection.cursor()
-        cur.execute(req, (name))
+        cur.execute(req, (name, ))
         connection.commit()
 
 
@@ -130,7 +130,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
                                                             'Что-то пошло не так')
                         else:
                             valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
-                                                        'Укажите правильный формат почты!!!33')
+                                                        'Укажите правильный формат почты!!!')
                     else:
                         valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
                                                     'Укажите код доступа для библиотекаря!!!')
@@ -161,7 +161,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
         if '@' not in email:
             return False
         for i in range(x):
-            if not email[i].isalnum() and email[i] != '@':
+            if not email[i].isalnum() or email[i] != '@':
                 return False
         return True
 
@@ -278,8 +278,6 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
                 if help[0] != '':
                     self.pushButton_6.setText('Удалить')
                     self.tableWidget_2.setColumnCount(7)
-                    for i in help[0].split(','):
-                        print(i)
                     elem = ['Номер в каталоге', 'Название книги', 'Автор', 'Год написания', 'Издатель', 'Перевод',
                             'Жанр']
                     # установка заголовков в таблицу
@@ -596,7 +594,6 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         sorted_key = sorted(result_genre_2, key=result_genre_2.get, reverse=True)
         for w in sorted_key:
             sorted_result[w] = result_genre_2[w]
-        print(sorted_result)
 
         key = list(sorted_result.keys())
         series = QPieSeries()
@@ -628,36 +625,6 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         chartview.setRenderHint(QPainter.Antialiasing)
 
         self.gridLayout_3.addWidget(chartview)
-
-    def create_piechart_4(self):
-        series = QPieSeries()
-        series.append("Фантастика", 80)
-        series.append("Детектив", 70)
-        series.append("Вестерн", 50)
-        series.append("Роман", 40)
-        series.append("Приключения", 30)
-
-        slice = QPieSlice()
-        slice = series.slices()[2]
-        slice.setExploded(True)
-        slice.setLabelVisible(True)
-        slice.setPen(QPen(Qt.darkGreen, 0.5))
-        slice.setBrush(Qt.green)
-
-        chart = QChart()
-        chart.legend().hide()
-        chart.addSeries(series)
-        chart.createDefaultAxes()
-        chart.setAnimationOptions(QChart.SeriesAnimations)
-        chart.setTitle("Топ любимых жанров")
-
-        chart.legend().setVisible(True)
-        chart.legend().setAlignment(Qt.AlignBottom)
-
-        chartview = QChartView(chart)
-        chartview.setRenderHint(QPainter.Antialiasing)
-
-        self.gridLayout_4.addWidget(chartview)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         connection.close()
@@ -745,8 +712,6 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
                 if help[0] != '':
                     self.pushButton_6.setText('Удалить')
                     self.tableWidget_2.setColumnCount(7)
-                    for i in help[0].split(','):
-                        print(i)
                     elem = ['Номер в каталоге', 'Название книги', 'Автор', 'Год написания', 'Издатель', 'Перевод',
                             'Жанр']
                     self.tableWidget_2.setRowCount(len(help[0].split(',')))
@@ -1247,7 +1212,7 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
     def make_update(self):
         name = self.lineEdit_10.text()
         age = self.lineEdit_13.text()
-        if self.radioButton.isChecked():
+        if self.radioButton_2.isChecked():
             sex = 'Мужской'
         else:
             sex = 'Женский'
@@ -1301,3 +1266,4 @@ if __name__ == '__main__':
     ex = Authorization()
     ex.show()
     sys.exit(app.exec_())
+
