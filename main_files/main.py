@@ -58,7 +58,7 @@ class Authorization(QMainWindow, Ui_Authorization_Design):
                 connection.commit()
             else:
                 valid = QMessageBox.warning(self, 'Ошибка при входе!',
-                                            'К сожалению, пароль не подходит, пожалуйста, повторите попытку')
+                                            'К сожалению, пароль не подходит, пожалуйста, повторите попытку.')
         else:
             valid = QMessageBox.warning(self, 'Ошибка при входе!',
                                         'К сожалению, мы не можем найти ваше имя в базе данных. Пожалуйста, повторите попытку.')
@@ -105,7 +105,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
                             if result:
 
                                 valid = QMessageBox.warning(self, 'Проверка регистрации!',
-                                                            'Поздравляю! Вы успешно зарегестрировались')
+                                                            'Поздравляю! Вы успешно зарегестрировались.')
                                 self.close()
                                 if help[3] == 'Читатель':
                                     self.main_window = MyMainWindow_User(self)
@@ -127,7 +127,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
 
                             else:
                                 valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
-                                                            'Что-то пошло не так')
+                                                            'Что-то пошло не так.')
                         else:
                             valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
                                                         'Укажите правильный формат почты!!!')
@@ -136,13 +136,13 @@ class Registration(QMainWindow, Ui_Registration_Design):
                                                     'Укажите код доступа для библиотекаря!!!')
                 else:
                     valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
-                                                'Я думаю невозможно иметь отрицательный или нулевой возраст')
+                                                'Я думаю невозможно иметь отрицательный или нулевой возраст.')
             else:
                 valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
                                             'Такое имя уже есть!')
         else:
             valid = QMessageBox.warning(self, 'Ошибка при регистрации!',
-                                        'Нужно заполнить все графы при регистрации. Пожалуйста, повторите попытку')
+                                        'Нужно заполнить все графы при регистрации. Пожалуйста, повторите попытку.')
 
     def check_name(self, name):
         req = """SELECT * FROM peoples WHERE name = ?"""
@@ -161,7 +161,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
         if '@' not in email:
             return False
         for i in range(x):
-            if not email[i].isalnum() or email[i] != '@':
+            if not email[i].isalnum() and email[i] != '@':
                 return False
         return True
 
@@ -247,7 +247,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
             connection.commit()
         except:
             valid = QMessageBox.warning(self, 'Ошибка пр удалении таблицы',
-                                        'Произошла ошибка при удалении таблицы, повторите попытку позже')
+                                        'Произошла ошибка при удалении таблицы, повторите попытку позже.')
 
     def redraw_table_1(self):
         req = """SELECT * FROM books"""
@@ -296,9 +296,9 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
                     header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
                     header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
                 else:
-                    self.pushButton_6.setText('У вас нет книг в списке для чтения')
+                    self.pushButton_6.setText('У вас нет книг в списке для чтения.')
             else:
-                self.pushButton_6.setText('У вас нет книг в списке для чтения')
+                self.pushButton_6.setText('У вас нет книг в списке для чтения.')
 
     def make_filters(self):
         checkbox = ['%', '%', '%']
@@ -341,7 +341,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
             self.delete_form.show()
         else:
             valid = QMessageBox.warning(self, 'Проверка системных прав!',
-                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг')
+                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг.')
 
     def delete_item_book(self, id):
         try:
@@ -358,7 +358,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
             row = list([i.row() for i in self.tableWidget.selectedItems()])
             if not len(row):
                 valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                            'Вы не выбрали строку для изменения')
+                                            'Вы не выбрали строку для изменения.')
             else:
                 row = row[0]
                 info = []
@@ -368,20 +368,20 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
                 self.update_form.show()
         else:
             valid = QMessageBox.warning(self, 'Проверка системных прав!',
-                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг')
+                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг.')
 
     def show_add_book(self):
         if self.role == 'Библиотекарь':
             self.add_form.show()
         else:
             valid = QMessageBox.warning(self, 'Проверка системных прав!',
-                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг')
+                                        'Только пользователь с должностью "Библиотекарь" может редактировать каталог книг.')
 
     def show_add_bookmarks(self):
         row = list([i.row() for i in self.tableWidget.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для изменения')
+                                        'Вы не выбрали строку для изменения.')
         else:
             row = row[0]
             info = []
@@ -394,7 +394,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         row = list([i.row() for i in self.tableWidget_2.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для изменения')
+                                        'Вы не выбрали строку для изменения.')
         else:
             row = row[0]
             info = []
@@ -448,7 +448,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
                 self.redraw_table_2()
             else:
                 valid = QMessageBox.warning(self, 'Добавление в список для чтения',
-                                            'Книга уже есть в списке для чтения')
+                                            'Книга уже есть в списке для чтения.')
         except:
             valid = QMessageBox.warning(self, 'Ошибка при работе с базой книг',
                                         'Произошла ошибка при добавлении книги в список для чтения!')
@@ -729,11 +729,11 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
                     header.setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
                     header.setSectionResizeMode(3, QtWidgets.QHeaderView.Stretch)
                 else:
-                    self.pushButton_6.setText('У вас нет книг в списке для чтения')
+                    self.pushButton_6.setText('У вас нет книг в списке для чтения.')
                     self.tableWidget_2.clear()
 
             else:
-                self.pushButton_6.setText('У вас нет книг в списке для чтения')
+                self.pushButton_6.setText('У вас нет книг в списке для чтения.')
 
     def make_filters(self):
         checkbox = ['%', '%', '%']
@@ -775,7 +775,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
         row = list([i.row() for i in self.tableWidget.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для изменения')
+                                        'Вы не выбрали строку для изменения.')
         else:
             row = row[0]
             info = []
@@ -788,7 +788,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
         row = list([i.row() for i in self.tableWidget_2.selectedItems()])
         if not len(row):
             valid = QMessageBox.warning(self, 'Проверка ввода!',
-                                        'Вы не выбрали строку для изменения')
+                                        'Вы не выбрали строку для изменения.')
         else:
             row = row[0]
             info = []
@@ -815,7 +815,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
                 self.create_piechart_1(self.name)
             else:
                 valid = QMessageBox.warning(self, 'Добавление в список для чтения',
-                                            'Книга уже есть в списке для чтения')
+                                            'Книга уже есть в списке для чтения.')
         except:
             valid = QMessageBox.warning(self, 'Ошибка при работе с базой книг',
                                         'Произошла ошибка при добавлении книги в список для чтения!')
@@ -894,7 +894,7 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
                 chart.addSeries(series)
                 chart.setTitle("Популярные у вас жанры")
             else:
-                chart.setTitle("У вас пока нет книг в 'Списке для Чтения', чтобы посмотреть свою статистику")
+                chart.setTitle("У вас пока нет книг в 'Списке для Чтения', чтобы посмотреть свою статистику.")
             chart.createDefaultAxes()
             chart.setAnimationOptions(QChart.SeriesAnimations)
 
@@ -1086,7 +1086,7 @@ class UpdateItemForm(QMainWindow, Ui_Update_Item_Form_Design):
                                             'Год должен быть числом!')
         else:
             valid = QMessageBox.warning(self, 'Обновление данных в библиотеке',
-                                        'Нужно заполнить все имя, автор, год, жанр')
+                                        'Нужно заполнить все имя, автор, год, жанр.')
 
 
 class Profile_Information(QMainWindow, Ui_Profile_Information_Design):
@@ -1143,7 +1143,7 @@ class Profile_Information(QMainWindow, Ui_Profile_Information_Design):
     def check_delete_profile(self):
         valid = QMessageBox.question(
             self, 'Подтверждение действий',
-            "Вы действительно хотите удалить данный аккаунт? При удаление вы выйдете из системы",
+            "Вы действительно хотите удалить данный аккаунт? При удаление вы выйдете из системы.",
             QMessageBox.Yes, QMessageBox.No)
         if valid == QMessageBox.Yes:
             self.parent().close()
@@ -1164,7 +1164,7 @@ class Profile_Information(QMainWindow, Ui_Profile_Information_Design):
         cur.execute(req_2, (self.name,))
         connection.commit()
         valid = QMessageBox.warning(self, 'Удаление профиля',
-                                    'Профиль успешно удален. Для создания нового аккаунт перезайдите в приложение')
+                                    'Профиль успешно удален. Для создания нового аккаунт перезайдите в приложение.')
 
     def update_profile(self, name, age, sex, role, password, mail):
         req = "UPDATE peoples SET name = ?, age = ?, sex = ? role = ?, password = ?, mail = ? WHERE name = ?"
@@ -1239,12 +1239,12 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
                             except:
                                 valid = QMessageBox.information(
                                     self, 'Ошибка при обновлении профиля',
-                                    "Произошла ошибка при обновлении профиля, повторите позже")
+                                    "Произошла ошибка при обновлении профиля, повторите позже.")
                         self.close()
                     else:
                         valid = QMessageBox.information(
                             self, 'Ошибка доступа',
-                            "Для создания аккаунта библиотекаря вам нужно иметь код библиотеки")
+                            "Для создания аккаунта библиотекаря вам нужно иметь код библиотеки.")
                 else:
                     valid = QMessageBox.information(
                         self, 'Ошибка формы',
@@ -1253,12 +1253,12 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
             else:
                 valid = QMessageBox.information(
                     self, 'Ошибка формы',
-                    "Возраст должен быть числом")
+                    "Возраст должен быть числом.")
 
         else:
             valid = QMessageBox.information(
                 self, 'Ошибка формы',
-                "Вам следует заполнить все графы")
+                "Вам следует заполнить все графы.")
 
 
 if __name__ == '__main__':
