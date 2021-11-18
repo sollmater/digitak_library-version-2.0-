@@ -18,6 +18,7 @@ from qt_design.python_design.registration_design import Ui_Registration_Design
 from qt_design.python_design.update_item_form_design import Ui_Update_Item_Form_Design
 from qt_design.python_design.update_profile_information_design import Ui_Update_Profile_Form_Design
 
+
 connection = sqlite3.connect('digital_library.sqlite')
 
 
