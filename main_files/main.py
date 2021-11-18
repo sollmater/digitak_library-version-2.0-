@@ -18,7 +18,6 @@ from qt_design.python_design.registration_design import Ui_Registration_Design
 from qt_design.python_design.update_item_form_design import Ui_Update_Item_Form_Design
 from qt_design.python_design.update_profile_information_design import Ui_Update_Profile_Form_Design
 
-
 connection = sqlite3.connect('digital_library.sqlite')
 
 
@@ -71,7 +70,7 @@ class Authorization(QMainWindow, Ui_Authorization_Design):
     def make_bookmarks_field(self, name):
         req = "INSERT INTO bookmarks(name, list_books) VALUES(?, '')"
         cur = connection.cursor()
-        cur.execute(req, (name, ))
+        cur.execute(req, (name,))
         connection.commit()
 
 
@@ -163,7 +162,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
         if '@' not in email:
             return False
         for i in range(x):
-            if not email[i].isalnum() and email[i] != '@':
+            if not email[i].isalnum() and email[i] != '@' and email[i] != '.':
                 return False
         return True
 
@@ -259,7 +258,7 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
         if len(result):
             self.tableWidget.setColumnCount(len(result[0]))
         self.titles = ['Номер в каталоге', 'Название книги', 'Автор', 'Год написания', 'Издатель', 'Перевод',
-                            'Жанр']
+                       'Жанр']
         self.tableWidget.setHorizontalHeaderLabels(self.titles)
         for i, elem in enumerate(result):
             for j, val in enumerate(elem):
@@ -1235,35 +1234,41 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
         code = self.lineEdit.text()
         mail = self.lineEdit_11.text()
         if '' not in [name, age, password, mail]:
-            if age.isdigit():
-                if int(age) > 0:
-                    if (role == 'Библиотекарь' and code == '456') or role == 'Читатель':
-                        valid = QMessageBox.question(
-                            self, 'Подтверждение действий',
-                            "Вы действительно хотите изменить данные в аккаунте? ",
-                            QMessageBox.Yes, QMessageBox.No)
-                        if valid == QMessageBox.Yes:
-                            try:
-                                req = "UPDATE peoples SET name = ?, age = ?, sex = ?, password = ?, " \
-                                      "role = ?, mail = ? WHERE name = ?"
-                                cur = connection.cursor()
-                                cur.execute(req, (name, age, sex, password, role, mail, self.name,))
-                                connection.commit()
-                                self.parent().get_information(name, age, sex, password, role, mail)
-                            except:
-                                valid = QMessageBox.information(
-                                    self, 'Ошибка при обновлении профиля',
-                                    "Произошла ошибка при обновлении профиля, повторите позже.")
-                        self.close()
+            if self.check_name(name):
+                if age.isdigit():
+                    if int(age) > 0:
+                        if (role == 'Библиотекарь' and code == '456') or role == 'Читатель':
+                            valid = QMessageBox.question(
+                                self, 'Подтверждение действий',
+                                "Вы действительно хотите изменить данные в аккаунте? ",
+                                QMessageBox.Yes, QMessageBox.No)
+                            if valid == QMessageBox.Yes:
+                                try:
+                                    req = "UPDATE peoples SET name = ?, age = ?, sex = ?, password = ?, " \
+                                          "role = ?, mail = ? WHERE name = ?"
+                                    req_2 = "UPDATE bookmarks SET name = ? WHERE name = ?"
+                                    cur = connection.cursor()
+                                    cur.execute(req, (name, age, sex, password, role, mail, self.name,))
+                                    cur.execute(req_2, (name, self.name))
+                                    connection.commit()
+                                    self.parent().get_information(name, age, sex, password, role, mail)
+                                except:
+                                    valid = QMessageBox.information(
+                                        self, 'Ошибка при обновлении профиля',
+                                        "Произошла ошибка при обновлении профиля, повторите позже.")
+                            self.close()
+                        else:
+                            valid = QMessageBox.information(
+                                self, 'Ошибка доступа',
+                                "Для создания аккаунта библиотекаря вам нужно иметь код библиотеки.")
                     else:
                         valid = QMessageBox.information(
-                            self, 'Ошибка доступа',
-                            "Для создания аккаунта библиотекаря вам нужно иметь код библиотеки.")
+                            self, 'Ошибка формы',
+                            "Возраст должен быть больше нуля!")
                 else:
                     valid = QMessageBox.information(
                         self, 'Ошибка формы',
-                        "Возраст должен быть больше нуля!")
-
+                        "Данное имя уже есть!")
             else:
                 valid = QMessageBox.information(
                     self, 'Ошибка формы',
@@ -1274,10 +1279,18 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
                 self, 'Ошибка формы',
                 "Вам следует заполнить все графы.")
 
+    def check_name(self, name):
+        req = """SELECT * FROM peoples WHERE name = ?"""
+        cur = connection.cursor()
+        result = cur.execute(req, (name,))
+        if len(list(result)) > 0:
+            return False
+        else:
+            return True
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Authorization()
     ex.show()
     sys.exit(app.exec_())
-
