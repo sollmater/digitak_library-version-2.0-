@@ -1085,8 +1085,8 @@ class UpdateItemForm(QMainWindow, Ui_Update_Item_Form_Design):
 
     def save_update_item(self):
         name = self.lineEdit_4.text()
-        author = self.lineEdit_5.text()
-        year = self.lineEdit_6.text()
+        author = self.lineEdit_6.text()
+        year = self.lineEdit_5.text()
         publisher = self.lineEdit_7.text()
         translator = self.lineEdit_8.text()
         genre = self.lineEdit_9.text()
@@ -1268,11 +1268,12 @@ class UpdateProfileInformation(QMainWindow, Ui_Update_Profile_Form_Design):
                 else:
                     valid = QMessageBox.information(
                         self, 'Ошибка формы',
-                        "Данное имя уже есть!")
+                        "Возраст должен быть числом.")
             else:
                 valid = QMessageBox.information(
                     self, 'Ошибка формы',
-                    "Возраст должен быть числом.")
+                    "Данное имя уже есть!")
+
 
         else:
             valid = QMessageBox.information(
