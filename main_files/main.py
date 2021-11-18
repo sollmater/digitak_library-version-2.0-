@@ -99,7 +99,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
             if self.check_name(help[0]):
                 if int(help[1]) > 0:
                     if (help[3] == 'Библиотекарь' and help[4] == '456') or help[3] == 'Читатель':
-                        if self.check_email(help[4]):
+                        if self.check_email(help[5]):
                             req = """INSERT INTO peoples(name, age, sex, password, role, mail) VALUES(?, ?, ?, ?, ?, ?)"""
                             cur = connection.cursor()
                             result = cur.execute(req, (help[0], help[1], help[6], help[2], help[3], help[5]))
@@ -115,6 +115,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
                                     self.make_bookmarks_field(help[0])
                                     self.main_window.redraw_table_1()
                                     self.main_window.redraw_table_2()
+                                    self.main_window.create_piechart_1(help[1])
                                     self.main_window.show()
                                 else:
                                     self.main_window = MyMainWindow_Dev(self)
@@ -896,6 +897,18 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
                 chart.setTitle("Популярные у вас жанры")
             else:
                 chart.setTitle("У вас пока нет книг в 'Списке для Чтения', чтобы посмотреть свою статистику.")
+            chart.createDefaultAxes()
+            chart.setAnimationOptions(QChart.SeriesAnimations)
+
+            chart.legend().setVisible(True)
+            chart.legend().setAlignment(Qt.AlignBottom)
+
+            chartview = QChartView(chart)
+            chartview.setRenderHint(QPainter.Antialiasing)
+            self.gridLayout.addWidget(chartview, 0, 0)
+        else:
+            chart = QChart()
+            chart.setTitle("У вас пока нет книг в 'Списке для Чтения', чтобы посмотреть свою статистику.")
             chart.createDefaultAxes()
             chart.setAnimationOptions(QChart.SeriesAnimations)
 
