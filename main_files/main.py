@@ -607,9 +607,6 @@ class MyMainWindow_Dev(QMainWindow, Ui_MainWindow_Design_Dev):
 
         slice = QPieSlice()
         slice = series.slices()[2]
-        slice.setExploded(True)
-        slice.setLabelVisible(True)
-        slice.setPen(QPen(Qt.darkGreen, 0.5))
         slice.setBrush(Qt.green)
 
         chart = QChart()
@@ -884,9 +881,9 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
 
                 slice = QPieSlice()
                 slice = series.slices()[0]
-                slice.setExploded(True)
-                slice.setLabelVisible(True)
-                slice.setPen(QPen(Qt.darkGreen, 0.5))
+                # slice.setExploded(True)
+                # slice.setLabelVisible(True)
+                # slice.setPen(QPen(Qt.darkGreen, 0.5))
                 slice.setBrush(Qt.green)
 
             chart = QChart()
@@ -945,9 +942,6 @@ class MyMainWindow_User(QMainWindow, Ui_MainWindow_Design_User):
 
         slice = QPieSlice()
         slice = series.slices()[2]
-        slice.setExploded(True)
-        slice.setLabelVisible(True)
-        slice.setPen(QPen(Qt.darkGreen, 0.5))
         slice.setBrush(Qt.green)
 
         chart = QChart()
