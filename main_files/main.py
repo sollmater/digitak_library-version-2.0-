@@ -105,7 +105,7 @@ class Registration(QMainWindow, Ui_Registration_Design):
                             if result:
 
                                 valid = QMessageBox.warning(self, 'Проверка регистрации!',
-                                                            'Поздравляю! Вы успешно зарегестрировались.')
+                                                            'Поздравляю! Вы успешно зарегистрировались.')
                                 self.close()
                                 if help[3] == 'Читатель':
                                     self.main_window = MyMainWindow_User(self)
